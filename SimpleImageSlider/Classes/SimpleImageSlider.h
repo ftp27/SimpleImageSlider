@@ -10,6 +10,11 @@
 
 @interface SimpleImageSlider : UIScrollView
 
+typedef NS_ENUM(NSInteger, SimpleImageSliderPosition) {
+    SimpleImageSliderPositionDefault,     // black with white border. good against any background
+    SimpleImageSliderPositionBottom,      // black only. smaller. good against a white background
+};
+
 /**
  Designated Initializer for images!
  
@@ -82,6 +87,9 @@
  *  @param scrollView The scrollview that is scrolling, and to which the SimpleImageSlider has been added as a subview and on which 'addParallaxToScrollView:height:' has been called.
  */
 - (void)scrollViewScrolled:(nonnull UIScrollView *)scrollView;
+
+
+- (void)setupPageControl:(SimpleImageSliderPosition) position;
 
 @end
 

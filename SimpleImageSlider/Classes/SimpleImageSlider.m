@@ -240,7 +240,11 @@ const CGFloat ImageOffset = 0;
 
 #pragma mark - Private Methods
 
-- (void)setupPageControl
+- (void)setupPageControl {
+    [self setupPageControl:SimpleImageSliderPositionDefault];
+}
+
+- (void)setupPageControl:(SimpleImageSliderPosition) position
 {
     [self.pageControl removeFromSuperview];
     self.pageControl = nil;
@@ -259,7 +263,52 @@ const CGFloat ImageOffset = 0;
     self.pageControl.currentPageIndicatorTintColor = [UIColor whiteColor];
     self.pageControl.pageIndicatorTintColor = [UIColor darkGrayColor];
     [self.pageControl addTarget:self action:@selector(changePage:) forControlEvents:UIControlEventValueChanged];
+    
+    self.pageControl.translatesAutoresizingMaskIntoConstraints = NO;
     [self addSubview:self.pageControl];
+    
+    NSLayoutConstraint *centerConst = [NSLayoutConstraint constraintWithItem:self.pageControl
+                                                                 attribute:NSLayoutAttributeCenterX
+                                                                 relatedBy:NSLayoutRelationEqual
+                                                                    toItem:self
+                                                                 attribute:NSLayoutAttributeCenterX
+                                                                multiplier:1.0
+                                                                  constant:0];
+    
+    NSLayoutConstraint *heightConst = [NSLayoutConstraint constraintWithItem:self.pageControl
+                                                                  attribute:NSLayoutAttributeHeight
+                                                                  relatedBy:NSLayoutRelationEqual
+                                                                     toItem:nil
+                                                                  attribute:NSLayoutAttributeNotAnAttribute
+                                                                 multiplier:1.0
+                                                                   constant:height];
+    NSLayoutConstraint *widthConst = [NSLayoutConstraint constraintWithItem:self.pageControl
+                                                                   attribute:NSLayoutAttributeWidth
+                                                                   relatedBy:NSLayoutRelationEqual
+                                                                      toItem:nil
+                                                                   attribute:NSLayoutAttributeNotAnAttribute
+                                                                  multiplier:1.0
+                                                                    constant:width];
+    NSLayoutConstraint *directCont;
+    if (position == SimpleImageSliderPositionDefault) {
+        directCont = [NSLayoutConstraint constraintWithItem:self.pageControl
+                                                  attribute:NSLayoutAttributeTop
+                                                  relatedBy:NSLayoutRelationEqual
+                                                     toItem:self
+                                                  attribute:NSLayoutAttributeTop
+                                                 multiplier:1.0
+                                                   constant:5];
+    } else {
+        directCont = [NSLayoutConstraint constraintWithItem:self.pageControl
+                                                  attribute:NSLayoutAttributeBottom
+                                                  relatedBy:NSLayoutRelationEqual
+                                                     toItem:self
+                                                  attribute:NSLayoutAttributeBottom
+                                                 multiplier:1.0
+                                                   constant:-5];
+    }
+    
+    [self addConstraints:@[centerConst, heightConst, widthConst, directCont]];
 }
 
 
