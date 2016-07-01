@@ -30,6 +30,9 @@ const CGFloat ImageOffset = 0;
 @property (nonatomic, strong) UIPageControl *pageControl;
 @end
 
+@interface SimpleImageSlider ()
+@property (nonatomic) SimpleImageSliderPosition positionIndicator;
+@end
 
 @implementation SimpleImageSlider
 
@@ -169,11 +172,11 @@ const CGFloat ImageOffset = 0;
         CGFloat pageWidth = self.frame.size.width;
         NSUInteger page = floor((self.contentOffset.x - (pageWidth + ImageOffset) / 2.0f) / (pageWidth + ImageOffset)) + 1;
         self.pageControl.currentPage = page;
-        
+        CGFloat topPadding = (self.positionIndicator == SimpleImageSliderPositionDefault)?5:self.frame.size.height-35;
         CGFloat height = 30;
         CGFloat width = self.frame.size.width;
         CGRect pageControlRect = CGRectMake(scrollView.contentOffset.x,
-                                            5,
+                                            topPadding,
                                             width,
                                             height);
         
@@ -248,11 +251,13 @@ const CGFloat ImageOffset = 0;
 {
     [self.pageControl removeFromSuperview];
     self.pageControl = nil;
+    self.positionIndicator = position;
     
     CGFloat height = 30;
     CGFloat width = self.frame.size.width;
+    CGFloat topPadding = (self.positionIndicator == SimpleImageSliderPositionDefault)?5:self.frame.size.height-35;
     CGRect pageControlRect = CGRectMake(0,
-                                        5,
+                                        topPadding,
                                         width,
                                         height);
     
@@ -264,51 +269,7 @@ const CGFloat ImageOffset = 0;
     self.pageControl.pageIndicatorTintColor = (_pageIndicatorTintColor)?_pageIndicatorTintColor:[UIColor darkGrayColor];
     [self.pageControl addTarget:self action:@selector(changePage:) forControlEvents:UIControlEventValueChanged];
     
-    self.pageControl.translatesAutoresizingMaskIntoConstraints = NO;
     [self addSubview:self.pageControl];
-    
-    NSLayoutConstraint *centerConst = [NSLayoutConstraint constraintWithItem:self.pageControl
-                                                                 attribute:NSLayoutAttributeCenterX
-                                                                 relatedBy:NSLayoutRelationEqual
-                                                                    toItem:self
-                                                                 attribute:NSLayoutAttributeCenterX
-                                                                multiplier:1.0
-                                                                  constant:0];
-    
-    NSLayoutConstraint *heightConst = [NSLayoutConstraint constraintWithItem:self.pageControl
-                                                                  attribute:NSLayoutAttributeHeight
-                                                                  relatedBy:NSLayoutRelationEqual
-                                                                     toItem:nil
-                                                                  attribute:NSLayoutAttributeNotAnAttribute
-                                                                 multiplier:1.0
-                                                                   constant:height];
-    NSLayoutConstraint *widthConst = [NSLayoutConstraint constraintWithItem:self.pageControl
-                                                                   attribute:NSLayoutAttributeWidth
-                                                                   relatedBy:NSLayoutRelationEqual
-                                                                      toItem:nil
-                                                                   attribute:NSLayoutAttributeNotAnAttribute
-                                                                  multiplier:1.0
-                                                                    constant:width];
-    NSLayoutConstraint *directCont;
-    if (position == SimpleImageSliderPositionDefault) {
-        directCont = [NSLayoutConstraint constraintWithItem:self.pageControl
-                                                  attribute:NSLayoutAttributeTop
-                                                  relatedBy:NSLayoutRelationEqual
-                                                     toItem:self
-                                                  attribute:NSLayoutAttributeTop
-                                                 multiplier:1.0
-                                                   constant:5];
-    } else {
-        directCont = [NSLayoutConstraint constraintWithItem:self.pageControl
-                                                  attribute:NSLayoutAttributeBottom
-                                                  relatedBy:NSLayoutRelationEqual
-                                                     toItem:self
-                                                  attribute:NSLayoutAttributeBottom
-                                                 multiplier:1.0
-                                                   constant:-5];
-    }
-    
-    [self addConstraints:@[centerConst, heightConst, widthConst, directCont]];
 }
 
 
