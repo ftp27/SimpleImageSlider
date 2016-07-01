@@ -63,7 +63,10 @@ typedef NS_ENUM(NSInteger, SimpleImageSliderPosition) {
  */
 @property (nullable, nonatomic, strong) NSArray<UIView *> *customViews;
 
+@property (nonatomic, copy, nullable) UIColor *currentPageIndicatorTintColor;
+@property (nonatomic, copy, nullable) UIColor *pageIndicatorTintColor;
 
+- (void)setupPageControl;
 /**
  *  Adds a parallax effect when scrolling in the scrollview. Use this method to add the effect with a fixed height.
  *

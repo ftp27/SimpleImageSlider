@@ -260,8 +260,8 @@ const CGFloat ImageOffset = 0;
     self.pageControl.numberOfPages = [self proxyData].count;
     self.pageControl.currentPage = 0;
     self.pageControl.hidesForSinglePage = YES;
-    self.pageControl.currentPageIndicatorTintColor = [UIColor whiteColor];
-    self.pageControl.pageIndicatorTintColor = [UIColor darkGrayColor];
+    self.pageControl.currentPageIndicatorTintColor = (_currentPageIndicatorTintColor)?_currentPageIndicatorTintColor:[UIColor whiteColor];
+    self.pageControl.pageIndicatorTintColor = (_pageIndicatorTintColor)?_pageIndicatorTintColor:[UIColor darkGrayColor];
     [self.pageControl addTarget:self action:@selector(changePage:) forControlEvents:UIControlEventValueChanged];
     
     self.pageControl.translatesAutoresizingMaskIntoConstraints = NO;
