@@ -94,6 +94,7 @@ const CGFloat ImageOffset = 0;
     self.pagingEnabled = YES;
     self.showsHorizontalScrollIndicator = NO;
     self.backgroundColor = [UIColor clearColor];
+    self.uiImageBackgroundColor = [UIColor colorWithHue:0 saturation:0 brightness:0.83 alpha:1];
     self.delegate = self;
 }
 
@@ -140,7 +141,7 @@ const CGFloat ImageOffset = 0;
             UIImageView *imgView = [[UIImageView alloc] initWithFrame:imageSize];
             imgView.contentMode = UIViewContentModeScaleAspectFill;
             imgView.clipsToBounds = YES;
-            imgView.backgroundColor = [UIColor colorWithHue:0 saturation:0 brightness:0.83 alpha:1];
+            imgView.backgroundColor = self.uiImageBackgroundColor;
             imgView.autoresizingMask = UIViewAutoresizingFlexibleHeight;
             [self addSubview:imgView];
             

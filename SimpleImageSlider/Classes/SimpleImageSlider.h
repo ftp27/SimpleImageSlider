@@ -65,6 +65,7 @@ typedef NS_ENUM(NSInteger, SimpleImageSliderPosition) {
 
 @property (nonatomic, copy, nullable) UIColor *currentPageIndicatorTintColor;
 @property (nonatomic, copy, nullable) UIColor *pageIndicatorTintColor;
+@property (nonatomic, copy, nullable) UIColor *uiImageBackgroundColor;
 
 - (void)setupPageControl;
 /**
