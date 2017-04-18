@@ -216,6 +216,15 @@ const CGFloat ImageOffset = 0;
     }
 }
 
+- (void) setUiImageBackgroundColor:(UIColor *)uiImageBackgroundColor {
+    if (_uiImageBackgroundColor != uiImageBackgroundColor) {
+        _uiImageBackgroundColor = uiImageBackgroundColor;
+        
+        [self updateUI];
+        [self setupPageControl];
+    }
+}
+
 - (void)setCustomViews:(NSArray<UIView *> *)customViews
 {
     if (_customViews != customViews) {
